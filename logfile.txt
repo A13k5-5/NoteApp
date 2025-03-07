@@ -1,0 +1,2 @@
+Mar 07, 2025 3:36:25 PM org.example.main.Main main
+INFO: Server started on port 8080
