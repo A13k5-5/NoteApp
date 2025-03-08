@@ -1,5 +1,6 @@
 package org.example.Model;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.Classes.Note;
 
@@ -22,38 +23,48 @@ public class Model {
         }
         return data;
     }
+
     public void editFile(File file, String newData) {
-        try{
+        try {
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(newData);
             bw.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public Note readNote(){
-        Note note = null;
+
+    public List<Note> readNotes() {
+        List<Note> notes = new ArrayList<>();
         try {
             ObjectMapper mapper = new ObjectMapper();
-            note = mapper.readValue(new File("data/note.json"), Note.class);
+            notes = mapper.readValue(new File("data/note.json"), new TypeReference<List<Note>>() {
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return note;
+        return notes;
     }
-    public void writeNote(Note note){
+
+    public void writeNotes(List<Note> notes) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(new File("data/note.json"), note);
+            mapper.writeValue(new File("data/note.json"), notes);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public static void main(String[] args) {
-        Model model = new Model();
-        Note note = model.readNote();
-        System.out.println(note.getTitle() + " " + note.getContent());
+
+    public void addNote(Note note) {
+        List<Note> notes = readNotes();
+        notes.add(note);
+        writeNotes(notes);
     }
+//    public static void main(String[] args) {
+//        Model model = new Model();
+//        Note note = model.readNote();
+//        System.out.println(note.getTitle() + " " + note.getContent());
+//    }
 }
+

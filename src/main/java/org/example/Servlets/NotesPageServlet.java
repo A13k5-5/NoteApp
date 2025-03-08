@@ -19,8 +19,8 @@ public class NotesPageServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
-        Note note = model.readNote();
-        request.setAttribute("note", note);
+        List<Note> notes = model.readNotes();
+        request.setAttribute("notes", notes);
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/notes.jsp");
@@ -29,9 +29,9 @@ public class NotesPageServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String noteContent = request.getParameter("content");
-        Note n = new Note(noteContent);
+        Note newNote = new Note(noteContent);
         Model model = ModelFactory.getModel();
-        model.writeNote(n);
+        model.addNote(newNote);
         response.sendRedirect("notes.html");
     }
 }
