@@ -1,9 +1,6 @@
 package org.example.Model;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +18,18 @@ public class Model {
             e.printStackTrace();
         }
         return data;
+    }
+
+    public void editFile(File file, String newData){
+        try{
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(newData);
+            bw.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<String> getData(File file) {

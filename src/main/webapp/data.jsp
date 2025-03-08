@@ -1,26 +1,21 @@
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: pison_p
-  Date: 3/7/2025
-  Time: 3:05 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Data</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<ul>
-<%
+<form class="container mt-3" method="post" action="data.html">
+    <input class="form-control" name="data" value="<%
     List<String> data = (List<String>) request.getAttribute("data");
+    StringBuilder concatenatedData = new StringBuilder();
     for (String dat : data) {
-%>
-    <li><%=dat%></li>
-<%
+        concatenatedData.append(dat).append(" ");
     }
-%>
-</ul>
-
+    out.print(concatenatedData.toString().trim());
+%>">
+    <input type="submit" class="btn btn-primary mt-3" value="Save">
+</form>
 </body>
 </html>

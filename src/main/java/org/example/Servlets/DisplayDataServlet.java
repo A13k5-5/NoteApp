@@ -14,12 +14,10 @@ import org.example.Model.Model;
 import org.example.Model.ModelFactory;
 
 @WebServlet("/data.html")
-public class WelcomePageServlet extends HttpServlet
-{
+public class DisplayDataServlet extends HttpServlet {
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException
-    {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         Model model = ModelFactory.getModel();
         List<String> data = model.readFile(new File("data/test.txt"));
         request.setAttribute("data", data);
@@ -27,5 +25,13 @@ public class WelcomePageServlet extends HttpServlet
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/data.jsp");
         dispatch.forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String newData = request.getParameter("data");
+        Model model = ModelFactory.getModel();
+        model.editFile(new File("data/test.txt"), newData);
+        response.sendRedirect("data.html");
     }
 }
