@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Data</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <%@include file="bootstrapConnect.jsp"%>
 </head>
 <body>
 <form class="container mt-3" method="post" action="data.html">
