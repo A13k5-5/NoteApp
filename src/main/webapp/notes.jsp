@@ -23,6 +23,7 @@
             <td>
                 <h5><%= n.getTitle() %></h5>
                 <p><%= n.getContent() %></p>
+                <a href="editNote.html?id=<%= n.getId()%>" class="btn btn-primary mt-3">Edit</a>
             </td>
         </tr>
         <% } %>

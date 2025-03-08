@@ -24,7 +24,8 @@ public class AddNoteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String noteContent = request.getParameter("content");
-        Note newNote = new Note(noteContent);
+        String noteTitle = request.getParameter("title");
+        Note newNote = new Note(noteContent, noteTitle);
         Model model = ModelFactory.getModel();
         model.addNote(newNote);
         response.sendRedirect("addNote.html");

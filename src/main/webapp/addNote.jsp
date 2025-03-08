@@ -7,7 +7,6 @@
 </head>
 <body>
 <%@include file="header.jsp"%>
-<p>Add Note page</p>
 <form class="container mt-3" method="post" action="addNote.html">
     <input class="form-control" name="title" placeholder="Title">
     <input class="form-control" name="content" placeholder="Add Note Content">

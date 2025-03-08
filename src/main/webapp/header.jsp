@@ -1,2 +1,19 @@
-<a href="/notes.html">Show Notes</a>
-<a href="/addNote.html">Add Note</a>
+<%@include file="bootstrapConnect.jsp"%>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">NoteApp</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/notes.html">Show Notes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/addNote.html">Add Note</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
