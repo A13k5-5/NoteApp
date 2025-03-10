@@ -1,23 +1,23 @@
 package org.example.Classes;
 
-public class Note {
+public class Note extends StorageItem {
     private static int num = 0;
     private String title;
     private String content;
     private int id;
     public Note(String content, String title){
+        super(title);
         this.content = content;
-        this.title = title;
         id = generateId();
     }
     public Note(String content) {
+        super("Unnamed Note");
         this.content = content;
-        this.title = "Unnamed Note";
         id = generateId();
     }
     public Note(){
+        super("Unnamed Note");
         this.content = "";
-        this.title = "Notes";
         id = generateId();
     }
     private static synchronized int generateId() {

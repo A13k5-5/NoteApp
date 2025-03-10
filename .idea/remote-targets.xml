@@ -12,6 +12,22 @@
           </config>
         </ContributedStateBase>
       </target>
+      <target name="WSL2" type="wsl" uuid="5ca6b238-a4f3-4791-969c-a62564ca8a44">
+        <config>
+          <option name="distributionMsId" value="Ubuntu" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="homePath" value="/home/pison/.jdks/openjdk-23.0.2" />
+          </config>
+        </ContributedStateBase>
+        <ContributedStateBase type="MavenRuntime">
+          <config>
+            <option name="homePath" value="/usr/share/maven" />
+            <option name="versionString" value="3.8.7" />
+          </config>
+        </ContributedStateBase>
+      </target>
     </targets>
   </component>
 </project>
