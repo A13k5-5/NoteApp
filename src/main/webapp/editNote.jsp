@@ -9,7 +9,7 @@
 <%@include file="header.jsp"%>
 <form class="container mt-3" method="post" action="editNote.html">
     <% Note noteToEdit = (Note) request.getAttribute("noteToEdit"); %>
-    <input class="form-control" name="title" value="<%= noteToEdit.getTitle() %>">
+    <input class="form-control" name="title" value="<%= noteToEdit.getName() %>">
     <input class="form-control" name="content" value="<%= noteToEdit.getContent() %>">
     <input type="hidden" name="id" value="<%= noteToEdit.getId()%>">
     <input type="submit" class="btn btn-primary mt-3" value="Save">

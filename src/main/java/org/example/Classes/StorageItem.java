@@ -1,11 +1,14 @@
 package org.example.Classes;
 
-public abstract class StorageItem {
+public class StorageItem {
     private String name;
     public StorageItem(String name){
         this.name = name;
     }
-    private String getName(){
+    public String getName(){
         return this.name;
+    }
+    public void setName(String name){
+        this.name = name;
     }
 }

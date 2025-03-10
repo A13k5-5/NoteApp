@@ -43,7 +43,7 @@ public class EditNoteServlet extends HttpServlet {
         List<Note> notes = model.readNotes();
         for (Note note : notes)
             if (note.getId() == idToEdit){
-                note.setTitle(newTitle);
+                note.setName(newTitle);
                 note.setContent(newContent);
                 break;
             }

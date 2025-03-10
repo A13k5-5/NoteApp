@@ -2,16 +2,15 @@ package org.example.Classes;
 
 public class Note extends StorageItem {
     private static int num = 0;
-    private String title;
     private String content;
     private int id;
-    public Note(String content, String title){
-        super(title);
+    public Note(String content, String name){
+        super(name);
         this.content = content;
         id = generateId();
     }
     public Note(String content) {
-        super("Unnamed Note");
+        super("Unnamed Not");
         this.content = content;
         id = generateId();
     }
@@ -25,7 +24,5 @@ public class Note extends StorageItem {
     }
     public String getContent() {return content;}
     public void setContent(String content) {this.content = content;}
-    public String getTitle() {return title;}
-    public void setTitle(String title) {this.title = title;}
     public int getId() {return id;}
 }
