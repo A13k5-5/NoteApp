@@ -53,5 +53,6 @@ public class Model {
         Note noteToEdit = find(idToEdit);
         noteToEdit.setContent(newContent);
         noteToEdit.setName(newTitle);
+        saveFiles();
     }
 }

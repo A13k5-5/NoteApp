@@ -19,7 +19,7 @@ public class EditNoteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
-        int idToEdit =  Integer.parseInt(request.getParameter("id"));
+        long idToEdit =  Long.parseLong(request.getParameter("id"));
         Note noteToEdit = model.find(idToEdit);
         request.setAttribute("noteToEdit", noteToEdit);
         ServletContext context = getServletContext();
@@ -30,9 +30,9 @@ public class EditNoteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String newContent = request.getParameter("content");
         String newTitle = request.getParameter("title");
-        int idToEdit = Integer.parseInt(request.getParameter("id"));
+        long idToEdit = Long.parseLong(request.getParameter("id"));
         Model model = ModelFactory.getModel();
-        model.editNote(idToEdit,  newContent, newTitle);
+        model.editNote(idToEdit, newContent, newTitle);
         response.sendRedirect("notes.html");
     }
 }
