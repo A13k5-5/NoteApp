@@ -2,69 +2,56 @@ package org.example.Model;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.Classes.Directory;
 import org.example.Classes.Note;
+import org.example.Classes.StorageItem;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-    public List<String> readFile(File file) {
-        List<String> data = new ArrayList<String>();
-        try {
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                data.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return data;
+    private Directory mainDirectory;
+    public Model(){
+        mainDirectory = loadFiles();
     }
-
-    public void editFile(File file, String newData) {
+    public Directory getMainDirectory() { return mainDirectory; }
+    public Directory loadFiles() {
+        Directory directory = new Directory("");
         try {
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(newData);
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<Note> readNotes() {
-        List<Note> notes = new ArrayList<>();
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            notes = mapper.readValue(new File("data/note.json"), new TypeReference<List<Note>>() {
-            });
+            ObjectMapper objectMapper = new ObjectMapper();
+            directory = objectMapper.readValue(new File("data/note.json"), Directory.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Could not load the files");;
         }
-        return notes;
+        return directory;
     }
-
-    public void writeNotes(List<Note> notes) {
+    public void saveFiles() {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(new File("data/note.json"), notes);
+            mapper.writeValue(new File("data/note.json"), mainDirectory);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    public void addNote(Note note) {
-        List<Note> notes = readNotes();
-        notes.add(note);
-        writeNotes(notes);
+    public void addItem(Note n) {
+        mainDirectory.addNote(n);
+        saveFiles();
     }
-//    public static void main(String[] args) {
-//        Model model = new Model();
-//        Note note = model.readNote();
-//        System.out.println(note.getTitle() + " " + note.getContent());
-//    }
+    public void addItem(Directory d) {
+        mainDirectory.addDirectory(d);
+        saveFiles();
+    }
+//    would be cool to add NOTENOTFOUND exception
+    public Note find(long id) {
+        for (Note note : mainDirectory.getNotes())
+            if (note.getId() == id)
+                return note;
+        return null;
+    }
+    public void editNote(long idToEdit, String newContent, String newTitle){
+        Note noteToEdit = find(idToEdit);
+        noteToEdit.setContent(newContent);
+        noteToEdit.setName(newTitle);
+    }
 }
-

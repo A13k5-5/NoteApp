@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.Classes.Directory;
 import org.example.Classes.Note;
 import org.example.Model.Model;
 import org.example.Model.ModelFactory;
@@ -19,8 +20,8 @@ public class NotesPageServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
-        List<Note> notes = model.readNotes();
-        request.setAttribute("notes", notes);
+        Directory mainDir = model.getMainDirectory();
+        request.setAttribute("contents", mainDir);
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/notes.jsp");
@@ -31,7 +32,7 @@ public class NotesPageServlet extends HttpServlet{
         String noteContent = request.getParameter("content");
         Note newNote = new Note(noteContent);
         Model model = ModelFactory.getModel();
-        model.addNote(newNote);
+        model.addItem(newNote);
         response.sendRedirect("notes.html");
     }
 }

@@ -1,5 +1,7 @@
 <%@ page import="org.example.Classes.Note" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.example.Classes.Directory" %>
+<%@ page import="org.example.Classes.StorageItem" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,13 +19,13 @@
         </thead>
         <tbody>
         <%
-            List<Note> notes = (List<Note>) request.getAttribute("notes");
-            for (Note n : notes) { %>
+            Directory mainDir = (Directory) request.getAttribute("contents");
+            for (Note n : mainDir.getNotes()) { %>
         <tr>
             <td>
                 <h5><%= n.getName() %></h5>
                 <p><%= n.getContent() %></p>
-                <a href="editNote.html?id=<%= n.getId()%>" class="btn btn-primary mt-3">Edit</a>
+                <a href="editNote.html?id=<%= n.getId() %>" class="btn btn-primary mt-3">Edit</a>
             </td>
         </tr>
         <% } %>

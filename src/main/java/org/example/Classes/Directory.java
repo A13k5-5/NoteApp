@@ -1,12 +1,16 @@
 package org.example.Classes;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Directory extends StorageItem {
     List <Directory> directories;
     List<Note> notes;
-    public Directory(String name) {
+    @JsonCreator
+    public Directory(@JsonProperty("name") String name) {
         super(name);
         notes = new ArrayList<>();
         directories = new ArrayList<>();
@@ -17,13 +21,16 @@ public class Directory extends StorageItem {
     public List<Note> getNotes() {
         return notes;
     }
-    public void addDirectory(Directory directory) {
-        directories.add(directory);
-    }
     public void addNote (Note note) {
         notes.add(note);
     }
-    public void removeDirectory(Directory directory) {
-        directories.remove(directory);
+    public void addDirectory(Directory directory) {
+        directories.add(directory);
+    }
+    public void removeDirectory(long id) {
+        directories.removeIf(directory -> directory.getId() == id);
+    }
+    public void removeNote(long id) {
+        notes.removeIf(note -> note.getId() == id);
     }
 }

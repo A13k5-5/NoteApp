@@ -27,7 +27,7 @@ public class AddNoteServlet extends HttpServlet {
         String noteName = request.getParameter("name");
         Note newNote = new Note(noteContent, noteName);
         Model model = ModelFactory.getModel();
-        model.addNote(newNote);
-        response.sendRedirect("addNote.html");
+        model.addItem(newNote);
+        response.sendRedirect("notes.html");
     }
 }

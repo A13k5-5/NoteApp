@@ -18,36 +18,21 @@ import java.util.List;
 public class EditNoteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        int idToEdit =  Integer.parseInt(request.getParameter("id"));
         Model model = ModelFactory.getModel();
-        List<Note> notes = model.readNotes();
-        Note noteToEdit = null;
-        for (Note n : notes)
-            if (n.getId() == idToEdit){
-                noteToEdit = n;
-                break;
-            }
+        int idToEdit =  Integer.parseInt(request.getParameter("id"));
+        Note noteToEdit = model.find(idToEdit);
         request.setAttribute("noteToEdit", noteToEdit);
-
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/editNote.jsp");
         dispatch.forward(request, response);
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String newContent = request.getParameter("content");
         String newTitle = request.getParameter("title");
         int idToEdit = Integer.parseInt(request.getParameter("id"));
         Model model = ModelFactory.getModel();
-        List<Note> notes = model.readNotes();
-        for (Note note : notes)
-            if (note.getId() == idToEdit){
-                note.setName(newTitle);
-                note.setContent(newContent);
-                break;
-            }
-        model.writeNotes(notes);
+        model.editNote(idToEdit,  newContent, newTitle);
         response.sendRedirect("notes.html");
     }
 }
