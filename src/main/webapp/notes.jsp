@@ -10,6 +10,12 @@
 </head>
 <body>
 <%@include file="header.jsp"%>
+<%
+Directory curDir = (Directory) request.getAttribute("contents");
+for(Directory d : curDir.getDirectories()) {
+%>
+    <p><%= d.getName() %></p>
+<% } %>
 <div class="container mt-3">
     <table class="table table-striped">
         <thead>
@@ -18,9 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        <%
-            Directory mainDir = (Directory) request.getAttribute("contents");
-            for (Note n : mainDir.getNotes()) { %>
+        <% for (Note n : curDir.getNotes()) { %>
         <tr>
             <td>
                 <h5><%= n.getName() %></h5>

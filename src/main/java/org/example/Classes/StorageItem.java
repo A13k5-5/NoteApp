@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public abstract class StorageItem {
     private String name;
     private final long id;
+    private Directory parentDir;
     @JsonCreator
     public StorageItem(@JsonProperty("name") String name){
         this.name = name;

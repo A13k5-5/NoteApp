@@ -20,8 +20,7 @@ public class NotesPageServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
-        Directory mainDir = model.getMainDirectory();
-        request.setAttribute("contents", mainDir);
+        request.setAttribute("contents", model.getCurDir());
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/notes.jsp");

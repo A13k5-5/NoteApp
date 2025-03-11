@@ -30,7 +30,5 @@ public class Directory extends StorageItem {
     public void removeDirectory(long id) {
         directories.removeIf(directory -> directory.getId() == id);
     }
-    public void removeNote(long id) {
-        notes.removeIf(note -> note.getId() == id);
-    }
+    public void removeNote(long id) { notes.removeIf(note -> note.getId() == id); }
 }

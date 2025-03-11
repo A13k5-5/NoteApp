@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.Classes.Directory;
 import org.example.Classes.Note;
 import org.example.Model.Model;
 import org.example.Model.ModelFactory;
@@ -23,11 +24,12 @@ public class AddNoteServlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String noteContent = request.getParameter("content");
-        String noteName = request.getParameter("name");
-        Note newNote = new Note(noteContent, noteName);
         Model model = ModelFactory.getModel();
-        model.addItem(newNote);
+        if (request.getParameter("dir").equals("true")) {
+            model.addItem(new Directory(request.getParameter("name")));
+        } else {
+            model.addItem(new Note(request.getParameter("name"), request.getParameter("content")));
+        }
         response.sendRedirect("notes.html");
     }
 }

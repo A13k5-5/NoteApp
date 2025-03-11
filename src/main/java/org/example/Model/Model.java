@@ -1,23 +1,24 @@
 package org.example.Model;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.Classes.Directory;
 import org.example.Classes.Note;
 import org.example.Classes.StorageItem;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class Model {
-    private Directory mainDirectory;
+    private final Directory mainDirectory;
+    private Directory curDir;
     public Model(){
         mainDirectory = loadFiles();
+        curDir = mainDirectory;
     }
     public Directory getMainDirectory() { return mainDirectory; }
     public Directory loadFiles() {
         Directory directory = new Directory("");
+        HashMap<Long, StorageItem> map = new HashMap<>();
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             directory = objectMapper.readValue(new File("data/note.json"), Directory.class);
@@ -55,4 +56,6 @@ public class Model {
         noteToEdit.setName(newTitle);
         saveFiles();
     }
+    public Directory getCurDir(){ return curDir; }
+    public void setCurDir(Directory newCurDir) { this.curDir = newCurDir; }
 }

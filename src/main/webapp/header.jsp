@@ -13,6 +13,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/addNote.html">Add Note</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/addDirectory.html">Add Dir</a>
+                </li>
             </ul>
         </div>
     </div>
