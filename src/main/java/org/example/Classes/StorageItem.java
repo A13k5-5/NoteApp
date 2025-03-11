@@ -19,4 +19,5 @@ public abstract class StorageItem {
         this.name = name;
     }
     public long getId() { return this.id; }
+    public Directory getParentDir() { return this.parentDir; }
 }

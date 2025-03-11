@@ -21,7 +21,6 @@ public class NotesPageServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
         request.setAttribute("contents", model.getCurDir());
-
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/notes.jsp");
         dispatch.forward(request, response);

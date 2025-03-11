@@ -36,18 +36,25 @@ public class Model {
         }
     }
     public void addItem(Note n) {
-        mainDirectory.addNote(n);
+        curDir.addNote(n);
         saveFiles();
     }
     public void addItem(Directory d) {
-        mainDirectory.addDirectory(d);
+        curDir.addDirectory(d);
         saveFiles();
     }
-//    would be cool to add NOTENOTFOUND exception
+//    would be cool to add NoteNotFound exception
     public Note find(long id) {
-        for (Note note : mainDirectory.getNotes())
+        for (Note note : curDir.getNotes())
             if (note.getId() == id)
                 return note;
+        return null;
+    }
+//    Add DirNotFound exception
+    public Directory findDir(long id) {
+        for (Directory d : curDir.getDirectories())
+            if (d.getId() == id)
+                return d;
         return null;
     }
     public void editNote(long idToEdit, String newContent, String newTitle){
@@ -58,4 +65,10 @@ public class Model {
     }
     public Directory getCurDir(){ return curDir; }
     public void setCurDir(Directory newCurDir) { this.curDir = newCurDir; }
+    public void changeCurDir(Long newDirId) {
+        Directory newCurDir = findDir(newDirId);
+        if (newCurDir == null)
+            return;
+        this.curDir = newCurDir;
+    }
 }

@@ -10,17 +10,34 @@
 </head>
 <body>
 <%@include file="header.jsp"%>
+
 <%
 Directory curDir = (Directory) request.getAttribute("contents");
-for(Directory d : curDir.getDirectories()) {
 %>
-    <p><%= d.getName() %></p>
-<% } %>
 <div class="container mt-3">
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Note</th>
+            <th>Directories</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(Directory d : curDir.getDirectories()) { %>
+        <tr>
+            <td>
+                <h5><%= d.getName() %></h5>
+                <a href="changeCurDir.html?newDirId=<%= d.getId() %>" class="btn btn-primary mt-3">Edit</a>
+            </td>
+        </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>
+<div class="container mt-3">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Notes</th>
         </tr>
         </thead>
         <tbody>
