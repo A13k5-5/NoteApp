@@ -15,6 +15,7 @@
 Directory curDir = (Directory) request.getAttribute("contents");
 %>
 <div class="container mt-3">
+    <a href="goBack.html" class="btn btn-primary mt-3">Back</a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -26,7 +27,7 @@ Directory curDir = (Directory) request.getAttribute("contents");
         <tr>
             <td>
                 <h5><%= d.getName() %></h5>
-                <a href="changeCurDir.html?newDirId=<%= d.getId() %>" class="btn btn-primary mt-3">Edit</a>
+                <a href="changeCurDir.html?newDirId=<%= d.getId() %>" class="btn btn-primary mt-3">Open</a>
             </td>
         </tr>
         <% } %>

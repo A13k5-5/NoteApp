@@ -6,14 +6,17 @@ import org.example.Classes.Note;
 import org.example.Classes.StorageItem;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Model {
     private final Directory mainDirectory;
-    private Directory curDir;
+    private List<Directory> pathToCur;
     public Model(){
         mainDirectory = loadFiles();
-        curDir = mainDirectory;
+        pathToCur = new ArrayList<>();
+        pathToCur.add(mainDirectory);
     }
     public Directory getMainDirectory() { return mainDirectory; }
     public Directory loadFiles() {
@@ -36,23 +39,23 @@ public class Model {
         }
     }
     public void addItem(Note n) {
-        curDir.addNote(n);
+        getCurDir().addNote(n);
         saveFiles();
     }
     public void addItem(Directory d) {
-        curDir.addDirectory(d);
+        getCurDir().addDirectory(d);
         saveFiles();
     }
 //    would be cool to add NoteNotFound exception
     public Note find(long id) {
-        for (Note note : curDir.getNotes())
+        for (Note note : getCurDir().getNotes())
             if (note.getId() == id)
                 return note;
         return null;
     }
 //    Add DirNotFound exception
     public Directory findDir(long id) {
-        for (Directory d : curDir.getDirectories())
+        for (Directory d : getCurDir().getDirectories())
             if (d.getId() == id)
                 return d;
         return null;
@@ -63,12 +66,18 @@ public class Model {
         noteToEdit.setName(newTitle);
         saveFiles();
     }
-    public Directory getCurDir(){ return curDir; }
-    public void setCurDir(Directory newCurDir) { this.curDir = newCurDir; }
+    public Directory getCurDir(){ return pathToCur.getLast(); }
     public void changeCurDir(Long newDirId) {
         Directory newCurDir = findDir(newDirId);
         if (newCurDir == null)
             return;
-        this.curDir = newCurDir;
+        // new dir is valid
+        pathToCur.add(newCurDir);
+    }
+    // No parent directory of current directory exception
+    public void goDirBack() {
+        if (pathToCur.size() == 1)
+            return;
+        pathToCur.removeLast();
     }
 }
