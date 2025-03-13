@@ -5,6 +5,7 @@
     <%@include file="bootstrapConnect.jsp"%>
 </head>
 <body>
+<%@include file="header.jsp"%>
 <form class="container mt-3" method="post" action="addNote.html?dir=true">
     <input class="form-control" name="name" placeholder="Title">
     <input type="submit" class="btn btn-primary mt-3" value="Save">
