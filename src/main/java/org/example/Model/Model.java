@@ -21,7 +21,6 @@ public class Model {
     public Directory getMainDirectory() { return mainDirectory; }
     public Directory loadFiles() {
         Directory directory = new Directory("");
-        HashMap<Long, StorageItem> map = new HashMap<>();
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             directory = objectMapper.readValue(new File("data/note.json"), Directory.class);
@@ -79,5 +78,8 @@ public class Model {
         if (pathToCur.size() == 1)
             return;
         pathToCur.removeLast();
+    }
+    public void deleteNote(long idToDelete) {
+        getCurDir().removeNote(idToDelete);
     }
 }
