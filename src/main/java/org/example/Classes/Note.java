@@ -2,7 +2,7 @@ package org.example.Classes;
 
 public class Note extends StorageItem {
     private String content;
-    public Note(String content, String name){
+    public Note(String name, String content){
         super(name);
         this.content = content;
     }
