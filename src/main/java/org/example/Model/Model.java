@@ -81,5 +81,6 @@ public class Model {
     }
     public void deleteNote(long idToDelete) {
         getCurDir().removeNote(idToDelete);
+        saveFiles();
     }
 }

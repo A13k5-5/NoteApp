@@ -15,7 +15,7 @@ public class DeleteItemServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Model model = ModelFactory.getModel();
-        Long idToDelete = Long.parseLong(request.getParameter("id"));
+        long idToDelete = Long.parseLong(request.getParameter("id"));
         model.deleteNote(idToDelete);
         response.sendRedirect("notes.html");
     }
