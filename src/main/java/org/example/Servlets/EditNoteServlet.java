@@ -32,6 +32,6 @@ public class EditNoteServlet extends HttpServlet {
         long idToEdit = Long.parseLong(request.getParameter("id"));
         Model model = ModelFactory.getModel();
         model.editNote(idToEdit, newContent, newTitle);
-        response.sendRedirect("notes.html");
+        response.sendRedirect("viewNote.html?id=" + idToEdit);
     }
 }
