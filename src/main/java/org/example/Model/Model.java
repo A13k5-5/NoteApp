@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Model {
-    private final Directory mainDirectory;
+    private Directory mainDirectory;
     private List<Directory> pathToCur;
     public Model(){
         mainDirectory = loadFiles();
@@ -19,6 +19,7 @@ public class Model {
         pathToCur.add(mainDirectory);
     }
     public Directory getMainDirectory() { return mainDirectory; }
+    public void setMainDirectory(Directory mainDirectory) { this.mainDirectory = mainDirectory; }
     public Directory loadFiles() {
         Directory directory = new Directory("");
         try {
