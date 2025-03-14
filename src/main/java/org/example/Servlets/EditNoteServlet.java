@@ -7,12 +7,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.Classes.Note;
 import org.example.Model.Model;
 import org.example.Model.ModelFactory;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/editNote.html")
 public class EditNoteServlet extends HttpServlet {

@@ -1,4 +1,4 @@
-package org.example.Classes;
+package org.example.Classes.StorageItems;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

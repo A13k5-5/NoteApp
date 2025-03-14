@@ -1,7 +1,6 @@
 package org.example.Servlets;
 
 import java.io.*;
-import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
@@ -10,8 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.Classes.Directory;
-import org.example.Classes.Note;
+import org.example.Classes.StorageItems.Note;
 import org.example.Model.Model;
 import org.example.Model.ModelFactory;
 

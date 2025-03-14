@@ -39,7 +39,7 @@ public final class viewNote_jsp extends org.apache.jasper.runtime.HttpJspBase
     _jspx_imports_packages.add("jakarta.servlet.http");
     _jspx_imports_packages.add("jakarta.servlet.jsp");
     _jspx_imports_classes = new java.util.LinkedHashSet<>(2);
-    _jspx_imports_classes.add("org.example.Classes.Note");
+    _jspx_imports_classes.add("org.example.Classes.StorageItems.Note");
   }
 
   private volatile jakarta.el.ExpressionFactory _el_expressionfactory;

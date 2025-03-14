@@ -1,4 +1,6 @@
-package org.example.Classes;
+package org.example.Classes.StorageItems;
+
+import org.example.Classes.StorageItems.StorageItem;
 
 public class Note extends StorageItem {
     private String content;

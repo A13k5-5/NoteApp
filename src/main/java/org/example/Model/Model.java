@@ -1,13 +1,11 @@
 package org.example.Model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.Classes.Directory;
-import org.example.Classes.Note;
-import org.example.Classes.StorageItem;
+import org.example.Classes.StorageItems.Directory;
+import org.example.Classes.StorageItems.Note;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Model {

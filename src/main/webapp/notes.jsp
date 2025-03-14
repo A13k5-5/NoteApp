@@ -1,7 +1,7 @@
-<%@ page import="org.example.Classes.Note" %>
+<%@ page import="org.example.Classes.StorageItems.Note" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.Classes.Directory" %>
-<%@ page import="org.example.Classes.StorageItem" %>
+<%@ page import="org.example.Classes.StorageItems.Directory" %>
+<%@ page import="org.example.Classes.StorageItems.StorageItem" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
