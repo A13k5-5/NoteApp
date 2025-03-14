@@ -47,6 +47,7 @@ Directory curDir = (Directory) request.getAttribute("contents");
             <td>
                 <h5><%= n.getName() %></h5>
                 <p><%= n.getContent() %></p>
+                <a href="viewNote.html?id=<%= n.getId() %>" class="btn btn-primary mt-3">View</a>
                 <a href="editNote.html?id=<%= n.getId() %>" class="btn btn-primary mt-3">Edit</a>
                 <a href="deleteNote.html?id=<%= n.getId() %>" class="btn btn-danger mt-3">Delete</a>
             </td>

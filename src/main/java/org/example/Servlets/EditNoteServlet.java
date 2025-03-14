@@ -20,8 +20,7 @@ public class EditNoteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
         long idToEdit =  Long.parseLong(request.getParameter("id"));
-        Note noteToEdit = model.find(idToEdit);
-        request.setAttribute("noteToEdit", noteToEdit);
+        request.setAttribute("noteToEdit", model.find(idToEdit));
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/editNote.jsp");
         dispatch.forward(request, response);
