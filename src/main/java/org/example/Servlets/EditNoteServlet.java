@@ -3,16 +3,23 @@ package org.example.Servlets;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import org.example.Model.Model;
 import org.example.Model.ModelFactory;
 
 import java.io.IOException;
 
 @WebServlet("/editNote.html")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024, // 1 MB
+        maxFileSize = 1024 * 1024 * 10,  // 10 MB
+        maxRequestSize = 1024 * 1024 * 15 // 15 MB
+)
 public class EditNoteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -29,6 +36,7 @@ public class EditNoteServlet extends HttpServlet {
         long noteIdToEdit = Long.parseLong(request.getParameter("noteId"));
         Model model = ModelFactory.getModel();
 
+        // Handle text contents
         request.getParameterMap().forEach((paramName, paramValues) -> {
             if (paramName.startsWith("content_")) {
                 long contentIdToEdit = Long.parseLong(paramName.substring(8));
@@ -37,7 +45,15 @@ public class EditNoteServlet extends HttpServlet {
             }
         });
 
+        // Handle file uploads
+        for (Part part : request.getParts()) {
+            if (part.getName().startsWith("content_") && part.getSize() > 0) {
+                long contentIdToEdit = Long.parseLong(part.getName().substring(8));
+                byte[] imageData = part.getInputStream().readAllBytes();
+                model.editNote(noteIdToEdit, contentIdToEdit, imageData, newTitle);
+            }
+        }
+
         response.sendRedirect("notes.html");
-//        response.sendRedirect("viewNote.html?id=" + noteIdToEdit);
     }
 }

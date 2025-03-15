@@ -64,6 +64,12 @@ public class Model {
         noteToEdit.setName(newTitle);
         saveFiles();
     }
+    public void editNote(long noteIdToEdit, long contentIdToEdit, byte[] imageData, String newTitle) {
+        Note noteToEdit = find(noteIdToEdit);
+        noteToEdit.editImageContent(contentIdToEdit, imageData);
+        noteToEdit.setName(newTitle);
+        saveFiles();
+    }
     public Directory getCurDir(){ return pathToCur.getLast(); }
     public void changeCurDir(Long newDirId) {
         Directory newCurDir = findDir(newDirId);

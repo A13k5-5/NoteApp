@@ -1,6 +1,7 @@
 package org.example.Classes.StorageItems;
 
 import org.example.Classes.Contents.Content;
+import org.example.Classes.Contents.Image;
 import org.example.Classes.Contents.Text;
 
 import java.util.ArrayList;
@@ -37,5 +38,13 @@ public class Note extends StorageItem {
             return;
         }
         ((Text)toChange).setText(newText);
+    }
+    public void editImageContent(long contentIdToEdit, byte[] imageData) {
+        Content toChange = findContent(contentIdToEdit);
+        if (!toChange.getType().equals("Image")) {
+            System.out.println("Not an image");
+            return;
+        }
+        ((Image)toChange).setImageData(imageData);
     }
 }
