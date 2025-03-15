@@ -7,4 +7,5 @@ public abstract class Content {
         this.type = type;
         this.id = System.currentTimeMillis();
     }
+    public String getType() { return this.type; }
 }

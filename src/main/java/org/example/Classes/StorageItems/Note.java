@@ -1,17 +1,19 @@
 package org.example.Classes.StorageItems;
 
-import org.example.Classes.StorageItems.StorageItem;
+import org.example.Classes.Contents.Content;
+import org.example.Classes.Contents.Text;
 
 public class Note extends StorageItem {
-    private String content;
+    private Content content;
     public Note(String name, String content){
         super(name);
-        this.content = content;
+        this.content = new Text(content);
     }
     public Note(){
         super("Unnamed Note");
-        this.content = "";
+        this.content = new Text("");
     }
-    public String getContent() {return content;}
-    public void setContent(String content) {this.content = content;}
+    public Content getContent() {return content;}
+    public void setContent(Content content) {this.content = content;}
+    public void setContent(String content) {this.content = new Text(content);}
 }

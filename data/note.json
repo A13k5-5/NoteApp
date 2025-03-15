@@ -1,1 +1,1 @@
-{"name":"root","id":1742048416294,"directories":[{"name":"Dir 1","id":1742048442708,"directories":[],"notes":[{"name":"Note 2","id":1742048451951,"content":"In dir 1 edited"}]}],"notes":[{"name":"Note 1","id":1742048424381,"content":"Content 2 edited\r\n"}]}
+{"name":"root","id":1742048416294,"directories":[{"name":"Dir 1","id":1742048442708,"directories":[],"notes":[{"name":"Note 2","id":1742048451951,"content":{"type":"Text","text":"In dir 1 edited again"}}]}],"notes":[]}

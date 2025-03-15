@@ -1,4 +1,5 @@
 <%@ page import="org.example.Classes.StorageItems.Note" %>
+<%@ page import="org.example.Classes.Contents.Text" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,7 +18,7 @@
             <h1><%= curNote.getName() %></h1>
         </div>
         <div class="card-body">
-            <p class="card-text"><%= curNote.getContent() %></p>
+            <p class="card-text"><%= curNote.getContent().getType().equals("Text") ? ((Text)curNote.getContent()).getText() : "Image" %></p>
         </div>
     </div>
     <a href="editNote.html?id=<%= curNote.getId() %>" class="btn btn-primary mt-3">Edit</a>

@@ -6,4 +6,5 @@ public class Text extends Content{
         super("Text");
         this.text = text;
     }
+    public String getText() { return this.text; }
 }
