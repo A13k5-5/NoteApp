@@ -18,6 +18,7 @@
         <textarea class="form-control" name="content_<%= content.getId() %>"><%= content.getType().equals("Text") ? ((Text)content).getText() : "Image" %></textarea>
     <% } %>
     <input type="hidden" name="noteId" value="<%= noteToEdit.getId() %>">
+    <a href="addContent?id=<%= noteToEdit.getId() %>&type=text" class="btn btn-primary mt-3">Add Text</a>
     <input type="submit" class="btn btn-primary mt-3" value="Save">
 </form>
 </body>
