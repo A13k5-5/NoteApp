@@ -8,6 +8,10 @@ public class Note extends StorageItem {
         super(name);
         this.content = content;
     }
+    public Note(){
+        super("Unnamed Note");
+        this.content = "";
+    }
     public String getContent() {return content;}
     public void setContent(String content) {this.content = content;}
 }

@@ -23,12 +23,4 @@ public class NotesPageServlet extends HttpServlet{
         RequestDispatcher dispatch = context.getRequestDispatcher("/notes.jsp");
         dispatch.forward(request, response);
     }
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String noteContent = request.getParameter("content");
-        Note newNote = new Note(noteContent);
-        Model model = ModelFactory.getModel();
-        model.addItem(newNote);
-        response.sendRedirect("notes.html");
-    }
 }

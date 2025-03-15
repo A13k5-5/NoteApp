@@ -18,12 +18,12 @@ public class Model {
     }
     public Directory getMainDirectory() { return mainDirectory; }
     public Directory loadFiles() {
-        Directory directory = new Directory("");
+        Directory directory = new Directory("root");
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             directory = objectMapper.readValue(new File("data/note.json"), Directory.class);
         } catch (Exception e) {
-            System.out.println("Could not load the files");;
+            System.out.println(e.getMessage());
         }
         return directory;
     }
