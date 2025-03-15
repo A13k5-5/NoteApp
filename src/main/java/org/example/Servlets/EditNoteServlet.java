@@ -27,9 +27,10 @@ public class EditNoteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String newContent = request.getParameter("content");
         String newTitle = request.getParameter("title");
-        long idToEdit = Long.parseLong(request.getParameter("id"));
+        long noteIdToEdit = Long.parseLong(request.getParameter("noteId"));
+        long contentIdToEdit = Long.parseLong(request.getParameter("contentId"));
         Model model = ModelFactory.getModel();
-        model.editNote(idToEdit, newContent, newTitle);
-        response.sendRedirect("viewNote.html?id=" + idToEdit);
+        model.editNote(noteIdToEdit, contentIdToEdit, newContent, newTitle);
+//        response.sendRedirect("viewNote.html?id=" + noteIdToEdit);
     }
 }

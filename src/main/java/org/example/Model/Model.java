@@ -1,6 +1,7 @@
 package org.example.Model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.Classes.Contents.Text;
 import org.example.Classes.StorageItems.Directory;
 import org.example.Classes.StorageItems.Note;
 
@@ -57,9 +58,9 @@ public class Model {
                 return d;
         return null;
     }
-    public void editNote(long idToEdit, String newContent, String newTitle){
-        Note noteToEdit = find(idToEdit);
-        noteToEdit.setContent(newContent);
+    public void editNote(long noteIdToEdit, long contentIdToEdit, String newContent, String newTitle){
+        Note noteToEdit = find(noteIdToEdit);
+        noteToEdit.editTextContent(contentIdToEdit, newContent);
         noteToEdit.setName(newTitle);
         saveFiles();
     }

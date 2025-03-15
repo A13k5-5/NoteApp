@@ -1,5 +1,6 @@
 <%@ page import="org.example.Classes.StorageItems.Note" %>
 <%@ page import="org.example.Classes.Contents.Text" %>
+<%@ page import="org.example.Classes.Contents.Content" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -11,9 +12,14 @@
 <form class="container mt-3" method="post" action="editNote.html">
     <% Note noteToEdit = (Note) request.getAttribute("noteToEdit"); %>
     <input class="form-control" name="title" value="<%= noteToEdit.getName() %>">
-    <textarea class="form-control" name="content"><%= noteToEdit.getContent().getType().equals("Text") ? ((Text)noteToEdit.getContent()).getText() : "Image" %></textarea>
-    <input type="hidden" name="id" value="<%= noteToEdit.getId()%>">
-    <input type="submit" class="btn btn-primary mt-3" value="Save">
+    <%
+    for (Content content : noteToEdit.getContent()) {
+    %>
+        <textarea class="form-control" name="content"><%= content.getType().equals("Text") ? ((Text)content).getText() : "Image" %></textarea>
+        <input type="hidden" name="noteId" value="<%= noteToEdit.getId() %>">
+        <input type="hidden" name="contentId" value="<%= content.getId() %>">
+        <input type="submit" class="btn btn-primary mt-3" value="Save">
+    <% } %>
 </form>
 </body>
 </html>
