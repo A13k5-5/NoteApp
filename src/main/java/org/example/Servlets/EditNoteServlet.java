@@ -37,7 +37,6 @@ public class EditNoteServlet extends HttpServlet {
             }
         });
 
-        response.sendRedirect("notes.html");
-//        response.sendRedirect("viewNote.html?id=" + noteIdToEdit);
+        response.sendRedirect("viewNote.html?id=" + noteIdToEdit);
     }
 }
