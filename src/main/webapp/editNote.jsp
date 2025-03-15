@@ -15,11 +15,10 @@
     <%
     for (Content content : noteToEdit.getContent()) {
     %>
-        <textarea class="form-control" name="content"><%= content.getType().equals("Text") ? ((Text)content).getText() : "Image" %></textarea>
-        <input type="hidden" name="noteId" value="<%= noteToEdit.getId() %>">
-        <input type="hidden" name="contentId" value="<%= content.getId() %>">
-        <input type="submit" class="btn btn-primary mt-3" value="Save">
+        <textarea class="form-control" name="content_<%= content.getId() %>"><%= content.getType().equals("Text") ? ((Text)content).getText() : "Image" %></textarea>
     <% } %>
+    <input type="hidden" name="noteId" value="<%= noteToEdit.getId() %>">
+    <input type="submit" class="btn btn-primary mt-3" value="Save">
 </form>
 </body>
 </html>
