@@ -8,12 +8,14 @@ import org.example.Classes.StorageItems.Directory;
 import org.example.Classes.StorageItems.Note;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
     private final Directory mainDirectory;
     private List<Directory> pathToCur;
+    private final String IMAGE_DIRECTORY = "images";
     public Model(){
         mainDirectory = loadFiles();
         pathToCur = new ArrayList<>();
@@ -100,5 +102,22 @@ public class Model {
     public void deleteNote(long idToDelete) {
         getCurDir().removeNote(idToDelete);
         saveFiles();
+    }
+    public void serveImage(String imageName, OutputStream outputStream) throws IOException {
+        File imageFile = new File(IMAGE_DIRECTORY, imageName);
+
+        if (!imageFile.exists()) {
+            throw new FileNotFoundException("Image not found");
+        }
+
+        String contentType = Files.probeContentType(imageFile.toPath());
+
+        try (FileInputStream inputStream = new FileInputStream(imageFile)) {
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        }
     }
 }

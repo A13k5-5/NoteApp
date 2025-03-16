@@ -1,6 +1,7 @@
 <%@ page import="org.example.Classes.StorageItems.Note" %>
 <%@ page import="org.example.Classes.Contents.Text" %>
 <%@ page import="org.example.Classes.Contents.Content" %>
+<%@ page import="org.example.Classes.Contents.Image" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -21,8 +22,12 @@
         <div class="card-body">
         <%
         for (Content content : curNote.getContent()) {
+            if (content.getType().equals("Text")) {
         %>
-            <p class="card-text"><%= content.getType().equals("Text") ? ((Text)content).getText() : "Image" %></p>
+                <p class="card-text"><%= ((Text)content).getText() %></p>
+        <% } else if(content.getType().equals("Image")) { %>
+                <img src="/<%= ((Image)content).getPath() %>" alt="<%= ((Image)content).getDescription() %>" class="img-fluid rounded mb-3">
+            <% } %>
         <% } %>
         </div>
     </div>
