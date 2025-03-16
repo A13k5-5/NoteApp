@@ -1,7 +1,7 @@
 <%@ page import="org.example.Classes.StorageItems.Directory" %>
 <%@include file="bootstrapConnect.jsp"%>
 <%
-    Directory curDir = (Directory) request.getAttribute("contents");
+    Directory curDir = (Directory) request.getAttribute("curDir");
 %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -21,7 +21,9 @@
                     <a class="nav-link" href="addDirectory.html">Add Dir</a>
                 </li>
             </ul>
-            <div class="nav-link ml-auto">Current directory: <%= curDir.getName() %></div>
+            <% if (curDir != null) {%>
+                <div class="nav-link ml-auto">Current directory: <%= curDir.getName() %></div>
+            <% } %>
         </div>
     </div>
 </nav>

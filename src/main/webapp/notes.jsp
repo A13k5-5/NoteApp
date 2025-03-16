@@ -18,8 +18,9 @@
     <input type="submit" class="btn btn-primary mt-3" value="Sort">
 </form>
 <div class="container mt-3">
-    <%if (curDir.)%>
-    <a href="goBack.html" class="btn btn-primary mt-3">Back</a>
+    <%if (!curDir.isRoot()) {%>
+        <a href="goBack.html" class="btn btn-primary mt-3">Go Back</a>
+    <% } %>
     <table class="table table-striped">
         <thead>
         <tr>

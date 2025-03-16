@@ -22,14 +22,13 @@ public class Model {
         pathToCur.add(mainDirectory);
         curDir = mainDirectory;
     }
-    public Directory getMainDirectory() { return mainDirectory; }
     public Directory loadFiles() {
-        Directory directory = new Directory("root");
+        Directory directory = new Directory("root",true);
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             directory = objectMapper.readValue(new File("data/note.json"), Directory.class);
         } catch (Exception e) {
-            System.out.println("Problem loading files");
+            System.out.println(e.getMessage());
         }
         return directory;
     }
@@ -137,11 +136,14 @@ public class Model {
         dirToEdit.setName(newName);
         saveFiles();
     }
-    public void search(String keywords) {
-        Directory result = new Directory(keywords + "search result");
-        getMainDirectory().search(keywords, result);
+    public boolean search(String keywords) {
+        Directory result = new Directory('"' + keywords+ '"' + " search result");
+        mainDirectory.search(keywords, result);
+        if (result.length() == 0)
+            return false;
         pathToCur.add(result);
         curDir = pathToCur.getLast();
+        return true;
     }
     public void sort() {
         curDir.sort();

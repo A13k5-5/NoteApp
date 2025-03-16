@@ -20,7 +20,7 @@ public class EditDirectoryServlet extends HttpServlet {
         Model model = ModelFactory.getModel();
         long idToEdit = Long.parseLong(request.getParameter("dirId"));
         Directory toEdit = model.findDir(idToEdit);
-        request.setAttribute("dirToEdit", toEdit);
+        request.setAttribute("curDir", toEdit);
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/editDir.jsp");

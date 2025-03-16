@@ -7,13 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Directory extends StorageItem {
-    List <Directory> directories;
-    List<Note> notes;
+    private final List <Directory> directories;
+    private final List<Note> notes;
+    private final boolean root;
     @JsonCreator
     public Directory(@JsonProperty("name") String name) {
         super(name);
         notes = new ArrayList<>();
         directories = new ArrayList<>();
+        this.root = false;
+    }
+    public Directory(String name, boolean isRoot) {
+        super(name);
+        notes = new ArrayList<>();
+        directories = new ArrayList<>();
+        this.root = isRoot;
     }
     public List<Directory> getDirectories() {
         return directories;
@@ -45,15 +53,18 @@ public class Directory extends StorageItem {
     }
     public void removeNote(long id) { notes.removeIf(note -> note.getId() == id); }
     public void search(String keywords, Directory result) {
-        if (this.getName().contains(keywords))
+        if (this.getName().contains(keywords) && !isRoot())
             result.addDirectory(this);
         for (Note n : notes)
             n.search(keywords, result);
-        for (Directory d : directories)
+        for (Directory d : directories) {
             d.search(keywords, result);
+        }
     }
     public void sort() {
         this.getNotes().sort((n1, n2) -> n1.getName().compareToIgnoreCase(n2.getName()));
         this.getDirectories().sort((d1, d2) -> d1.getName().compareToIgnoreCase(d2.getName()));
     }
+    public boolean isRoot() { return this.root; }
+    public int length() { return notes.size() + directories.size(); }
 }
