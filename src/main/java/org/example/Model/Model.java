@@ -2,6 +2,7 @@ package org.example.Model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Part;
+import org.eclipse.jdt.internal.compiler.lookup.ProblemBinding;
 import org.example.Classes.Contents.Image;
 import org.example.Classes.Contents.Text;
 import org.example.Classes.StorageItems.Directory;
@@ -14,8 +15,8 @@ import java.util.List;
 
 public class Model {
     private final Directory mainDirectory;
-    private List<Directory> pathToCur;
-    private final String IMAGE_DIRECTORY = "images";
+    private final List<Directory> pathToCur;
+
     public Model(){
         mainDirectory = loadFiles();
         pathToCur = new ArrayList<>();
@@ -28,7 +29,7 @@ public class Model {
             ObjectMapper objectMapper = new ObjectMapper();
             directory = objectMapper.readValue(new File("data/note.json"), Directory.class);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Problem loading files");
         }
         return directory;
     }
@@ -90,7 +91,6 @@ public class Model {
         Directory newCurDir = findDir(newDirId);
         if (newCurDir == null)
             return;
-        // new dir is valid
         pathToCur.add(newCurDir);
     }
     // No parent directory of current directory exception
@@ -103,17 +103,18 @@ public class Model {
         getCurDir().removeNote(idToDelete);
         saveFiles();
     }
+    public void removeContent(long noteId, long contentId) {
+        find(noteId).removeContent(contentId);
+        saveFiles();
+    }
     public void serveImage(String imageName, OutputStream outputStream) throws IOException {
+        String IMAGE_DIRECTORY = "images";
         File imageFile = new File(IMAGE_DIRECTORY, imageName);
-
         if (!imageFile.exists()) {
             throw new FileNotFoundException("Image not found");
         }
-
-        String contentType = Files.probeContentType(imageFile.toPath());
-
         try (FileInputStream inputStream = new FileInputStream(imageFile)) {
-            byte[] buffer = new byte[4096];
+            byte[] buffer = new byte[4 * 1024];
             int bytesRead;
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, bytesRead);

@@ -3,6 +3,7 @@ package org.example.Classes.StorageItems;
 import org.example.Classes.Contents.Content;
 import org.example.Classes.Contents.Image;
 import org.example.Classes.Contents.Text;
+import org.example.Model.ModelFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,6 +29,13 @@ public class Note extends StorageItem {
     }
     public void addContent(Content newContent) {
         this.content.add(newContent);
+    }
+    public void removeContent(long contentId) {
+        Content toRemove = findContent(contentId);
+        if (toRemove.getType().equals("Image")) {
+//            ModelFactory.getModel();
+        }
+        content.removeIf(content -> content.getId() == contentId);
     }
     public void editTextContent(long contentIdToEdit, String newText) {
         Content toChange = findContent(contentIdToEdit);
