@@ -18,7 +18,7 @@ public class ViewNoteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
         long idToView = Long.parseLong(request.getParameter("id"));
-        request.setAttribute("note", model.find(idToView));
+        request.setAttribute("note", model.findNote(idToView));
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/viewNote.jsp");
         dispatch.forward(request, response);

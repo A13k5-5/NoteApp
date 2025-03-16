@@ -27,6 +27,13 @@ public class Directory extends StorageItem {
     public void addDirectory(Directory directory) {
         directories.add(directory);
     }
+    // Note not found
+    public Note findNote(long noteId) {
+        for (Note n : notes)
+            if (n.getId() == noteId)
+                return n;
+        return null;
+    }
     public void removeDirectory(long id) {
         directories.removeIf(directory -> directory.getId() == id);
     }

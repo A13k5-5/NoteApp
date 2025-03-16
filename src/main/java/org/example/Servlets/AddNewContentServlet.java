@@ -20,7 +20,7 @@ public class AddNewContentServlet extends HttpServlet {
         Model model = ModelFactory.getModel();
         String type = request.getParameter("type");
         long noteId = Long.parseLong(request.getParameter("id"));
-        Note noteToEdit = model.find(noteId);
+        Note noteToEdit = model.findNote(noteId);
         if (type.equals("text")) {
             noteToEdit.addContent(new Text());
         } else if(type.equals("image")) {

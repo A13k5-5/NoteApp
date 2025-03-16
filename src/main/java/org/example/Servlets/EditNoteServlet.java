@@ -12,7 +12,6 @@ import jakarta.servlet.http.Part;
 import org.example.Model.Model;
 import org.example.Model.ModelFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -28,7 +27,7 @@ public class EditNoteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
         long idToEdit =  Long.parseLong(request.getParameter("id"));
-        request.setAttribute("noteToEdit", model.find(idToEdit));
+        request.setAttribute("noteToEdit", model.findNote(idToEdit));
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/editNote.jsp");
         dispatch.forward(request, response);

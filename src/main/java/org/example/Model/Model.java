@@ -2,15 +2,12 @@ package org.example.Model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Part;
-import org.eclipse.jdt.internal.compiler.lookup.ProblemBinding;
 import org.example.Classes.Contents.Content;
 import org.example.Classes.Contents.Image;
-import org.example.Classes.Contents.Text;
 import org.example.Classes.StorageItems.Directory;
 import org.example.Classes.StorageItems.Note;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,11 +48,8 @@ public class Model {
         saveFiles();
     }
 //    would be cool to add NoteNotFound exception
-    public Note find(long id) {
-        for (Note note : getCurDir().getNotes())
-            if (note.getId() == id)
-                return note;
-        return null;
+    public Note findNote(long id) {
+        return this.getCurDir().findNote(id);
     }
 //    Add DirNotFound exception
     public Directory findDir(long id) {
@@ -66,7 +60,7 @@ public class Model {
     }
     // Text Content
     public void editNote(long noteIdToEdit, long contentIdToEdit, String newContent, String newTitle){
-        Note noteToEdit = find(noteIdToEdit);
+        Note noteToEdit = this.getCurDir().findNote(noteIdToEdit);
         noteToEdit.editTextContent(contentIdToEdit, newContent);
         noteToEdit.setName(newTitle);
         saveFiles();
@@ -83,7 +77,7 @@ public class Model {
         File destFile = new File(uploadsDir, filename);
         part.write(destFile.getAbsolutePath());
 
-        Note noteToEdit = find(noteIdToEdit);
+        Note noteToEdit = this.getCurDir().findNote(noteIdToEdit);
         noteToEdit.editImageContent(contentIdToEdit, destFile);
         saveFiles();
     }
@@ -105,7 +99,7 @@ public class Model {
         saveFiles();
     }
     public void removeContent(long noteId, long contentId) {
-        Content removed = find(noteId).removeContent(contentId);
+        Content removed = this.getCurDir().findNote(noteId).removeContent(contentId);
         if (removed.getType().equals("Image")) {
             String imagePath = ((Image) removed).getPath();
             File imageFile = new File(imagePath);
