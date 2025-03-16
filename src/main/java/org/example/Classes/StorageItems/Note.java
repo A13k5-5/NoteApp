@@ -44,12 +44,12 @@ public class Note extends StorageItem {
         }
         ((Text)toChange).setText(newText);
     }
-    public void editImageContent(long contentIdToEdit, File newImage) {
+    public void editImageContent(long contentIdToEdit, File newImage, String imgDescription) {
         Content toChange = findContent(contentIdToEdit);
         if (!toChange.getType().equals("Image"))
             return;
         String relativePath = "images/" + newImage.getName();
         ((Image)toChange).setPath(relativePath);
-        // To do - image description
+        ((Image)toChange).setDescription(imgDescription);
     }
 }

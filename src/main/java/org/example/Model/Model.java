@@ -66,7 +66,7 @@ public class Model {
         saveFiles();
     }
     // Image Content
-    public void editNote(long noteIdToEdit, long contentIdToEdit, Part part) throws IOException {
+    public void editNote(long noteIdToEdit, long contentIdToEdit, Part part, String imgDescription) throws IOException {
         File uploadsDir = new File(System.getProperty("user.dir"), "images");
         if (!uploadsDir.exists())
             uploadsDir.mkdirs();
@@ -78,7 +78,7 @@ public class Model {
         part.write(destFile.getAbsolutePath());
 
         Note noteToEdit = this.getCurDir().findNote(noteIdToEdit);
-        noteToEdit.editImageContent(contentIdToEdit, destFile);
+        noteToEdit.editImageContent(contentIdToEdit, destFile, imgDescription);
         saveFiles();
     }
     public Directory getCurDir(){ return pathToCur.getLast(); }
