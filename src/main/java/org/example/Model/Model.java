@@ -122,4 +122,9 @@ public class Model {
             }
         }
     }
+    public void changeDirName(long dirId, String newName) {
+        Directory dirToEdit = getCurDir().findDirectory(dirId);
+        dirToEdit.setName(newName);
+        saveFiles();
+    }
 }

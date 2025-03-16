@@ -28,6 +28,7 @@ Directory curDir = (Directory) request.getAttribute("contents");
             <td>
                 <h5><%= d.getName() %></h5>
                 <a href="changeCurDir.html?newDirId=<%= d.getId() %>" class="btn btn-primary mt-3">Open</a>
+                <a href="editDir?dirId=<%= d.getId() %>" class="btn btn-primary mt-3">Edit</a>
             </td>
         </tr>
         <% } %>

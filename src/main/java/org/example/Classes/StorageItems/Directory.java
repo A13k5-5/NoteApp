@@ -34,6 +34,12 @@ public class Directory extends StorageItem {
                 return n;
         return null;
     }
+    public Directory findDirectory(long dirId) {
+        for (Directory d : directories)
+            if (d.getId() == dirId)
+                return d;
+        return null;
+    }
     public void removeDirectory(long id) {
         directories.removeIf(directory -> directory.getId() == id);
     }
