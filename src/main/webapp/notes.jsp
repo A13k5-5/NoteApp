@@ -1,7 +1,6 @@
 <%@ page import="org.example.Classes.StorageItems.Note" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.example.Classes.StorageItems.Directory" %>
-<%@ page import="org.example.Classes.StorageItems.StorageItem" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -11,8 +10,14 @@
 <body>
 <%@include file="header.jsp"%>
 <form class="container mt-3" action="search">
-    <input class="nav-list-search" type="text" name="keywords" placeholder="Search">
-    <input type="submit" class="btn btn-primary mt-3" value="Search">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <input class="form-control mb-2" type="text" name="keywords" placeholder="Search">
+        </div>
+        <div class="col-auto">
+            <input type="submit" class="btn btn-primary mb-2" value="Search">
+        </div>
+    </div>
 </form>
 <form class="container mt-3" action="sort">
     <input type="submit" class="btn btn-primary mt-3" value="Sort">

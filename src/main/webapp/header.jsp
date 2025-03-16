@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="notes.html">Show Notes</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/">Show Notes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="addNote.html">Add Note</a>
