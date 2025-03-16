@@ -3,6 +3,7 @@ package org.example.Model;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Part;
 import org.eclipse.jdt.internal.compiler.lookup.ProblemBinding;
+import org.example.Classes.Contents.Content;
 import org.example.Classes.Contents.Image;
 import org.example.Classes.Contents.Text;
 import org.example.Classes.StorageItems.Directory;
@@ -104,7 +105,13 @@ public class Model {
         saveFiles();
     }
     public void removeContent(long noteId, long contentId) {
-        find(noteId).removeContent(contentId);
+        Content removed = find(noteId).removeContent(contentId);
+        if (removed.getType().equals("Image")) {
+            String imagePath = ((Image) removed).getPath();
+            File imageFile = new File(imagePath);
+            if (imageFile.exists())
+                imageFile.delete();
+        }
         saveFiles();
     }
     public void serveImage(String imageName, OutputStream outputStream) throws IOException {
