@@ -29,6 +29,7 @@ Directory curDir = (Directory) request.getAttribute("contents");
                 <h5><%= d.getName() %></h5>
                 <a href="changeCurDir.html?newDirId=<%= d.getId() %>" class="btn btn-primary mt-3">Open</a>
                 <a href="editDir?dirId=<%= d.getId() %>" class="btn btn-primary mt-3">Edit</a>
+                <a href="delete?id=<%= d.getId() %>&type=dir" class="btn btn-danger mt-3">Delete</a>
             </td>
         </tr>
         <% } %>
@@ -47,10 +48,9 @@ Directory curDir = (Directory) request.getAttribute("contents");
         <tr>
             <td>
                 <h5><%= n.getName() %></h5>
-<%--                <p><%= n.getContent() %></p>--%>
                 <a href="viewNote.html?id=<%= n.getId() %>" class="btn btn-primary mt-3">View</a>
                 <a href="editNote.html?id=<%= n.getId() %>" class="btn btn-primary mt-3">Edit</a>
-                <a href="deleteNote.html?id=<%= n.getId() %>" class="btn btn-danger mt-3">Delete</a>
+                <a href="delete?id=<%= n.getId() %>&type=note" class="btn btn-danger mt-3">Delete</a>
             </td>
         </tr>
         <% } %>

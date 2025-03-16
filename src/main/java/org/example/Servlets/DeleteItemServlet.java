@@ -10,13 +10,17 @@ import org.example.Model.ModelFactory;
 
 import java.io.IOException;
 
-@WebServlet("/deleteNote.html")
+@WebServlet("/delete")
 public class DeleteItemServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Model model = ModelFactory.getModel();
         long idToDelete = Long.parseLong(request.getParameter("id"));
-        model.deleteNote(idToDelete);
+        String type = request.getParameter("type");
+        if (type.equals("note"))
+            model.deleteNote(idToDelete);
+        else if(type.equals("dir"))
+            model.deleteDir(idToDelete);
         response.sendRedirect("notes.html");
     }
 }

@@ -98,6 +98,10 @@ public class Model {
         getCurDir().removeNote(idToDelete);
         saveFiles();
     }
+    public void deleteDir(long idToDelete) {
+        getCurDir().removeDirectory(idToDelete);
+        saveFiles();
+    }
     public void removeContent(long noteId, long contentId) {
         Content removed = this.getCurDir().findNote(noteId).removeContent(contentId);
         if (removed.getType().equals("Image")) {
