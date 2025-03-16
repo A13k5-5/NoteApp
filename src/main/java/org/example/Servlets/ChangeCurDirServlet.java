@@ -17,6 +17,6 @@ public class ChangeCurDirServlet extends HttpServlet {
         Model model = ModelFactory.getModel();
         Long newDirId = Long.parseLong(request.getParameter("newDirId"));
         model.changeCurDir(newDirId);
-        response.sendRedirect("notes.html");
+        response.sendRedirect("/");
     }
 }

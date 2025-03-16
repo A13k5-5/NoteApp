@@ -26,6 +26,6 @@ public class SearchServlet extends HttpServlet {
             dispatch.forward(request, response);
             return;
         }
-        response.sendRedirect("notes.html");
+        response.sendRedirect("/");
     }
 }

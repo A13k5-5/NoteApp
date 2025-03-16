@@ -14,6 +14,6 @@ public class SortServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ModelFactory.getModel().sort();
-        response.sendRedirect("notes.html");
+        response.sendRedirect("/");
     }
 }

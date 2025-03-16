@@ -21,6 +21,6 @@ public class DeleteItemServlet extends HttpServlet {
             model.deleteNote(idToDelete);
         else if(type.equals("dir"))
             model.deleteDir(idToDelete);
-        response.sendRedirect("notes.html");
+        response.sendRedirect("/");
     }
 }

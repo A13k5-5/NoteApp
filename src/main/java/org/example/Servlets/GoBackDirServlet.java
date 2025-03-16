@@ -16,6 +16,6 @@ public class GoBackDirServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Model model = ModelFactory.getModel();
         model.goDirBack();
-        response.sendRedirect("notes.html");
+        response.sendRedirect("/");
     }
 }

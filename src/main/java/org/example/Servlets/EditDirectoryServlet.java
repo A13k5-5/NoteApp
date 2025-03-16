@@ -31,6 +31,6 @@ public class EditDirectoryServlet extends HttpServlet {
         String newName = request.getParameter("name");
         long dirId = Long.parseLong(request.getParameter("dirId"));
         ModelFactory.getModel().changeDirName(dirId, newName);
-        response.sendRedirect("notes.html");
+        response.sendRedirect("/");
     }
 }

@@ -30,6 +30,6 @@ public class AddNoteServlet extends HttpServlet {
         } else {
             model.addItem(new Note(request.getParameter("name"), request.getParameter("content")));
         }
-        response.sendRedirect("notes.html");
+        response.sendRedirect("/");
     }
 }

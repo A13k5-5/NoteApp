@@ -13,7 +13,7 @@ import org.example.Classes.StorageItems.Note;
 import org.example.Model.Model;
 import org.example.Model.ModelFactory;
 
-@WebServlet("/notes.html")
+@WebServlet("/")
 public class NotesPageServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
