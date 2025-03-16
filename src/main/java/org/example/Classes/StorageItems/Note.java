@@ -3,8 +3,6 @@ package org.example.Classes.StorageItems;
 import org.example.Classes.Contents.Content;
 import org.example.Classes.Contents.Image;
 import org.example.Classes.Contents.Text;
-import org.example.Model.Model;
-import org.example.Model.ModelFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -36,7 +34,7 @@ public class Note extends StorageItem {
         content.removeIf(content -> content.getId() == contentId);
         return toRemove;
     }
-    public void editTextContent(long contentIdToEdit, String newText) {
+    public void editText(long contentIdToEdit, String newText) {
         Content toChange = findContent(contentIdToEdit);
         if (!toChange.getType().equals("Text")){
             System.out.println("Not a text");
@@ -44,12 +42,17 @@ public class Note extends StorageItem {
         }
         ((Text)toChange).setText(newText);
     }
-    public void editImageContent(long contentIdToEdit, File newImage, String imgDescription) {
+    public void editImage(long contentIdToEdit, File newImage) {
         Content toChange = findContent(contentIdToEdit);
         if (!toChange.getType().equals("Image"))
             return;
         String relativePath = "images/" + newImage.getName();
         ((Image)toChange).setPath(relativePath);
+    }
+    public void editImageDescription(long contentIdToEdit, String imgDescription) {
+        Content toChange = findContent(contentIdToEdit);
+        if (!toChange.getType().equals("Image"))
+            return;
         ((Image)toChange).setDescription(imgDescription);
     }
 }

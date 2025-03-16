@@ -27,8 +27,7 @@ public class EditDirectoryServlet extends HttpServlet {
         dispatch.forward(request, response);
     }
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Model model = ModelFactory.getModel();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String newName = request.getParameter("name");
         long dirId = Long.parseLong(request.getParameter("dirId"));
         ModelFactory.getModel().changeDirName(dirId, newName);

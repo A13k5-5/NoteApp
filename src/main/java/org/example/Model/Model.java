@@ -58,15 +58,13 @@ public class Model {
                 return d;
         return null;
     }
-    // Text Content
-    public void editNote(long noteIdToEdit, long contentIdToEdit, String newContent, String newTitle){
+    public void editText(long noteIdToEdit, long contentIdToEdit, String newContent, String newTitle){
         Note noteToEdit = this.getCurDir().findNote(noteIdToEdit);
-        noteToEdit.editTextContent(contentIdToEdit, newContent);
+        noteToEdit.editText(contentIdToEdit, newContent);
         noteToEdit.setName(newTitle);
         saveFiles();
     }
-    // Image Content
-    public void editNote(long noteIdToEdit, long contentIdToEdit, Part part, String imgDescription) throws IOException {
+    public void editImage(long noteIdToEdit, long contentIdToEdit, Part part) throws IOException {
         File uploadsDir = new File(System.getProperty("user.dir"), "images");
         if (!uploadsDir.exists())
             uploadsDir.mkdirs();
@@ -78,7 +76,11 @@ public class Model {
         part.write(destFile.getAbsolutePath());
 
         Note noteToEdit = this.getCurDir().findNote(noteIdToEdit);
-        noteToEdit.editImageContent(contentIdToEdit, destFile, imgDescription);
+        noteToEdit.editImage(contentIdToEdit, destFile);
+        saveFiles();
+    }
+    public void editImageDescription(long noteIdToEdit, long contentIdToEdit, String imgDescription) {
+        getCurDir().findNote(noteIdToEdit).editImageDescription(contentIdToEdit, imgDescription);
         saveFiles();
     }
     public Directory getCurDir(){ return pathToCur.getLast(); }

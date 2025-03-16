@@ -37,20 +37,26 @@ public class EditNoteServlet extends HttpServlet {
         String newTitle = request.getParameter("title");
         long noteIdToEdit = Long.parseLong(request.getParameter("noteId"));
         Model model = ModelFactory.getModel();
+        String contentPrefix = "content_";
+        String descriptionPrefix = "description_";
+        String imagePrefix = "img_";
 
         request.getParameterMap().forEach((paramName, paramValues) -> {
-            if (paramName.startsWith("content_")) {
-                long contentIdToEdit = Long.parseLong(paramName.substring(8));
+            if (paramName.startsWith(contentPrefix)) {
+                long contentIdToEdit = Long.parseLong(paramName.substring(contentPrefix.length()));
                 String newContent = paramValues[0];
-                model.editNote(noteIdToEdit, contentIdToEdit, newContent, newTitle);
+                model.editText(noteIdToEdit, contentIdToEdit, newContent, newTitle);
+            } else if(paramName.startsWith(descriptionPrefix)) {
+                long contentIdToEdit = Long.parseLong(paramName.substring(descriptionPrefix.length()));
+                String newDescription = paramValues[0];
+                model.editImageDescription(noteIdToEdit, contentIdToEdit, newDescription);
             }
         });
 
         for (Part part : request.getParts()) {
             if (part.getName().startsWith("img_") && part.getSize() > 0) {
                 long contentIdToEdit = Long.parseLong(part.getName().substring(4));
-                String description = request.getParameter("description_" + contentIdToEdit);
-                model.editNote(noteIdToEdit, contentIdToEdit, part, description);
+                model.editImage(noteIdToEdit, contentIdToEdit, part);
             }
         }
         response.sendRedirect("viewNote.html?id=" + noteIdToEdit);
