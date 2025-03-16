@@ -52,4 +52,8 @@ public class Directory extends StorageItem {
         for (Directory d : directories)
             d.search(keywords, result);
     }
+    public void sort() {
+        this.getNotes().sort((n1, n2) -> n1.getName().compareToIgnoreCase(n2.getName()));
+        this.getDirectories().sort((d1, d2) -> d1.getName().compareToIgnoreCase(d2.getName()));
+    }
 }

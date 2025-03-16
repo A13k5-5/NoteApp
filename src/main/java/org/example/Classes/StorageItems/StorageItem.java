@@ -6,10 +6,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public abstract class StorageItem {
     private String name;
     private final long id;
+    private final long timeCreated;
     @JsonCreator
     public StorageItem(@JsonProperty("name") String name){
         this.name = name;
         this.id = System.currentTimeMillis();
+        this.timeCreated = System.currentTimeMillis();
     }
     public String getName(){
         return this.name;

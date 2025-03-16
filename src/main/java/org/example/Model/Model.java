@@ -9,6 +9,7 @@ import org.example.Classes.StorageItems.Note;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Model {
@@ -141,5 +142,9 @@ public class Model {
         getMainDirectory().search(keywords, result);
         pathToCur.add(result);
         curDir = pathToCur.getLast();
+    }
+    public void sort() {
+        curDir.sort();
+        saveFiles();
     }
 }
