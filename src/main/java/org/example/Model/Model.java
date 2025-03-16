@@ -14,11 +14,12 @@ import java.util.List;
 public class Model {
     private final Directory mainDirectory;
     private final List<Directory> pathToCur;
-
+    private Directory curDir;
     public Model(){
         mainDirectory = loadFiles();
         pathToCur = new ArrayList<>();
         pathToCur.add(mainDirectory);
+        curDir = mainDirectory;
     }
     public Directory getMainDirectory() { return mainDirectory; }
     public Directory loadFiles() {
@@ -83,18 +84,20 @@ public class Model {
         getCurDir().findNote(noteIdToEdit).editImageDescription(contentIdToEdit, imgDescription);
         saveFiles();
     }
-    public Directory getCurDir(){ return pathToCur.getLast(); }
+    public Directory getCurDir(){ return this.curDir; }
     public void changeCurDir(Long newDirId) {
         Directory newCurDir = findDir(newDirId);
         if (newCurDir == null)
             return;
         pathToCur.add(newCurDir);
+        curDir = newCurDir;
     }
     // No parent directory of current directory exception
     public void goDirBack() {
         if (pathToCur.size() == 1)
             return;
         pathToCur.removeLast();
+        curDir = pathToCur.getLast();
     }
     public void deleteNote(long idToDelete) {
         getCurDir().removeNote(idToDelete);
@@ -132,5 +135,11 @@ public class Model {
         Directory dirToEdit = getCurDir().findDirectory(dirId);
         dirToEdit.setName(newName);
         saveFiles();
+    }
+    public void search(String keywords) {
+        Directory result = new Directory(keywords + "search result");
+        getMainDirectory().search(keywords, result);
+        pathToCur.add(result);
+        curDir = pathToCur.getLast();
     }
 }

@@ -55,4 +55,15 @@ public class Note extends StorageItem {
             return;
         ((Image)toChange).setDescription(imgDescription);
     }
+    public void search(String keywords, Directory result) {
+        if (this.getName().contains(keywords)){
+            result.addNote(this);
+            return;
+        }
+        for (Content c : content) {
+            if(c.getType().equals("Text") && ((Text)c).getText().contains(keywords) || c.getType().equals("Image") && ((Image)c).getDescription().contains(keywords)) {
+                result.addNote(this);
+            }
+        }
+    }
 }

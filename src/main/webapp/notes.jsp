@@ -10,10 +10,13 @@
 </head>
 <body>
 <%@include file="header.jsp"%>
-
 <%
 Directory curDir = (Directory) request.getAttribute("contents");
 %>
+<form class="container mt-3" action="search">
+    <input class="nav-list-search" type="text" name="keywords" placeholder="Search">
+    <input type="submit" class="btn btn-primary mt-3" value="Search">
+</form>
 <div class="container mt-3">
     <a href="goBack.html" class="btn btn-primary mt-3">Back</a>
     <table class="table table-striped">

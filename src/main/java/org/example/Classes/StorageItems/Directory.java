@@ -44,4 +44,12 @@ public class Directory extends StorageItem {
         directories.removeIf(directory -> directory.getId() == id);
     }
     public void removeNote(long id) { notes.removeIf(note -> note.getId() == id); }
+    public void search(String keywords, Directory result) {
+        if (this.getName().contains(keywords))
+            result.addDirectory(this);
+        for (Note n : notes)
+            n.search(keywords, result);
+        for (Directory d : directories)
+            d.search(keywords, result);
+    }
 }

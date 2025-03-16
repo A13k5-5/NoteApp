@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 
 @WebServlet("/images/*")
 public class ImageServlet extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String imagePath = request.getPathInfo().substring(1);
