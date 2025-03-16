@@ -1,6 +1,8 @@
 package org.example.Model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.Part;
+import org.example.Classes.Contents.Image;
 import org.example.Classes.Contents.Text;
 import org.example.Classes.StorageItems.Directory;
 import org.example.Classes.StorageItems.Note;
@@ -58,10 +60,27 @@ public class Model {
                 return d;
         return null;
     }
+    // Text Content
     public void editNote(long noteIdToEdit, long contentIdToEdit, String newContent, String newTitle){
         Note noteToEdit = find(noteIdToEdit);
         noteToEdit.editTextContent(contentIdToEdit, newContent);
         noteToEdit.setName(newTitle);
+        saveFiles();
+    }
+    // Image Content
+    public void editNote(long noteIdToEdit, long contentIdToEdit, Part part) throws IOException {
+        File uploadsDir = new File(System.getProperty("user.dir"), "images");
+        if (!uploadsDir.exists())
+            uploadsDir.mkdirs();
+
+        String submittedFileName = part.getSubmittedFileName();
+        String fileExtension = submittedFileName.substring(submittedFileName.lastIndexOf('.'));
+        String filename = contentIdToEdit + fileExtension;
+        File destFile = new File(uploadsDir, filename);
+        part.write(destFile.getAbsolutePath());
+
+        Note noteToEdit = find(noteIdToEdit);
+        noteToEdit.editImageContent(contentIdToEdit, destFile);
         saveFiles();
     }
     public Directory getCurDir(){ return pathToCur.getLast(); }

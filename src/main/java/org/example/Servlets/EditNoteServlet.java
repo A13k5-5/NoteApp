@@ -35,11 +35,6 @@ public class EditNoteServlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        File uploadsDir = new File(System.getProperty("user.dir"), "images");
-        if (!uploadsDir.exists()) {
-            uploadsDir.mkdirs();
-        }
-
         String newTitle = request.getParameter("title");
         long noteIdToEdit = Long.parseLong(request.getParameter("noteId"));
         Model model = ModelFactory.getModel();
@@ -53,16 +48,11 @@ public class EditNoteServlet extends HttpServlet {
         });
 
         for (Part part : request.getParts()) {
-            if (part.getName().startsWith("img_")) {
-                if (part.getSize() > 0) {
-                    String fileName = System.currentTimeMillis() + "_" + part.getSubmittedFileName();
-                    File destFile = new File(uploadsDir, fileName);
-                    part.write(destFile.getAbsolutePath());
-                    logger.info("Image saved to: " + destFile.getAbsolutePath());
-                }
+            if (part.getName().startsWith("img_") && part.getSize() > 0) {
+                long contentIdToEdit = Long.parseLong(part.getName().substring(4));
+                model.editNote(noteIdToEdit, contentIdToEdit, part);
             }
         }
-
         response.sendRedirect("viewNote.html?id=" + noteIdToEdit);
     }
 }
