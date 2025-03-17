@@ -19,8 +19,20 @@
         </div>
     </div>
 </form>
-<form class="container mt-3" action="sort">
-    <input type="submit" class="btn btn-primary mt-3" value="Sort">
+<form class="container mt-3" action="sort" method="get">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <select class="form-control mb-2" name="sortOrder">
+                <option value="a-z">A-Z</option>
+                <option value="z-a">Z-A</option>
+                <option value="oldest-to-newest">Oldest to Newest</option>
+                <option value="newest-to-oldest">Newest to Oldest</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <input type="submit" class="btn btn-primary mb-2" value="Sort">
+        </div>
+    </div>
 </form>
 <div class="container mt-3">
     <%if (!curDir.isRoot()) {%>

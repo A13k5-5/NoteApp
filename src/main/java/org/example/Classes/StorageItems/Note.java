@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Note extends StorageItem {
-    private List<Content> content;
+    private final List<Content> content;
     public Note(String name, String content){
         super(name);
         this.content = new ArrayList<>();

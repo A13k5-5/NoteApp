@@ -61,9 +61,9 @@ public class Directory extends StorageItem {
             d.search(keywords, result);
         }
     }
-    public void sort() {
-        this.getNotes().sort((n1, n2) -> n1.getName().compareToIgnoreCase(n2.getName()));
-        this.getDirectories().sort((d1, d2) -> d1.getName().compareToIgnoreCase(d2.getName()));
+    public void sort(boolean reversed) {
+        this.getNotes().sort((n1, n2) -> (reversed ? n2 : n1).getName().compareToIgnoreCase((reversed ? n1 : n2).getName()));
+        this.getDirectories().sort((d1, d2) -> (reversed ? d2 : d1).getName().compareToIgnoreCase((reversed ? d1 : d2).getName()));
     }
     public boolean isRoot() { return this.root; }
     public int length() { return notes.size() + directories.size(); }

@@ -1,6 +1,7 @@
 package org.example.Model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.http.Part;
 import org.example.Classes.Contents.Content;
 import org.example.Classes.Contents.Image;
@@ -26,6 +27,7 @@ public class Model {
         Directory directory = new Directory("root",true);
         try {
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
             directory = objectMapper.readValue(new File("data/note.json"), Directory.class);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -34,8 +36,9 @@ public class Model {
     }
     public void saveFiles() {
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(new File("data/note.json"), mainDirectory);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            objectMapper.writeValue(new File("data/note.json"), mainDirectory);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -145,8 +148,8 @@ public class Model {
         curDir = pathToCur.getLast();
         return true;
     }
-    public void sort() {
-        curDir.sort();
+    public void sort(boolean reversed) {
+        curDir.sort(reversed);
         saveFiles();
     }
 }
