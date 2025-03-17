@@ -38,6 +38,7 @@ public class EditNoteServlet extends HttpServlet {
             ServletContext context = getServletContext();
             RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
             dispatch.forward(request, response);
+            return;
         }
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/editNote.jsp");
