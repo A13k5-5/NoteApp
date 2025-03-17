@@ -54,7 +54,7 @@ public class EditNoteServlet extends HttpServlet {
         });
 
         for (Part part : request.getParts()) {
-            if (part.getName().startsWith("img_") && part.getSize() > 0) {
+            if (part.getName().startsWith(imagePrefix) && part.getSize() > 0) {
                 long contentIdToEdit = Long.parseLong(part.getName().substring(4));
                 model.editImage(noteIdToEdit, contentIdToEdit, part);
             }
