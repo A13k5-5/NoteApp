@@ -12,14 +12,15 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 public class Model {
     private final Directory mainDirectory;
-    private final List<Directory> pathToCur;
+    private final Stack<Directory> pathToCur;
     private Directory curDir;
     public Model(){
         mainDirectory = loadFiles();
-        pathToCur = new ArrayList<>();
+        pathToCur = new Stack<>();
         pathToCur.add(mainDirectory);
         curDir = mainDirectory;
     }
@@ -92,15 +93,15 @@ public class Model {
         Directory newCurDir = findDir(newDirId);
         if (newCurDir == null)
             return;
-        pathToCur.add(newCurDir);
+        pathToCur.push(newCurDir);
         curDir = newCurDir;
     }
     // No parent directory of current directory exception
     public void goDirBack() {
-        if (pathToCur.size() == 1)
+        if (pathToCur.peek() == mainDirectory)
             return;
-        pathToCur.removeLast();
-        curDir = pathToCur.getLast();
+        pathToCur.pop();
+        curDir = pathToCur.peek();
     }
     public void deleteNote(long idToDelete) {
         getCurDir().removeNote(idToDelete);
@@ -144,8 +145,8 @@ public class Model {
         mainDirectory.search(keywords, result);
         if (result.length() == 0)
             return false;
-        pathToCur.add(result);
-        curDir = pathToCur.getLast();
+        pathToCur.push(result);
+        curDir = pathToCur.peek();
         return true;
     }
     public void sort(String type) {
