@@ -9,20 +9,17 @@ import org.example.Classes.StorageItems.Directory;
 import org.example.Classes.StorageItems.Note;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Stack;
 
 public class Model {
-    private final Directory mainDirectory;
+    private final Directory rootDirectory;
     private final Stack<Directory> pathToCur;
     private Directory curDir;
     public Model(){
-        mainDirectory = loadFiles();
+        rootDirectory = loadFiles();
         pathToCur = new Stack<>();
-        pathToCur.add(mainDirectory);
-        curDir = mainDirectory;
+        pathToCur.add(rootDirectory);
+        curDir = rootDirectory;
     }
     public Directory loadFiles() {
         Directory directory = new Directory("root",true);
@@ -39,7 +36,7 @@ public class Model {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
-            objectMapper.writeValue(new File("data/note.json"), mainDirectory);
+            objectMapper.writeValue(new File("data/note.json"), rootDirectory);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,7 +95,7 @@ public class Model {
     }
     // No parent directory of current directory exception
     public void goDirBack() {
-        if (pathToCur.peek() == mainDirectory)
+        if (pathToCur.peek() == rootDirectory)
             return;
         pathToCur.pop();
         curDir = pathToCur.peek();
