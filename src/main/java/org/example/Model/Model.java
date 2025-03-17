@@ -142,7 +142,7 @@ public class Model {
     }
     public boolean search(String keywords) {
         Directory result = new Directory('"' + keywords+ '"' + " search result");
-        mainDirectory.search(keywords, result);
+        curDir.search(keywords, result);
         if (result.length() == 0)
             return false;
         pathToCur.push(result);
