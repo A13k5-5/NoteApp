@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalTime;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public abstract class StorageItem {
@@ -13,7 +14,7 @@ public abstract class StorageItem {
     @JsonCreator
     public StorageItem(@JsonProperty("name") String name){
         this.name = name;
-        this.id = System.currentTimeMillis();
+        this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         this.timeCreated = LocalTime.now();
     }
     public String getName(){

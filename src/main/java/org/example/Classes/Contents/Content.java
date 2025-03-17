@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import java.util.UUID;
+
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -20,7 +22,7 @@ public abstract class Content {
     protected final long id;
     public Content() {
         this.type = "Text";
-        this.id = System.currentTimeMillis();
+        this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
     }
     @JsonCreator
     public Content(@JsonProperty("type") String type) {
