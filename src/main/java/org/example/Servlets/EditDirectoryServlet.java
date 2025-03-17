@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.Classes.StorageItems.Directory;
+import org.example.Exceptions.DirectoryNotFound;
 import org.example.Model.Model;
 import org.example.Model.ModelFactory;
 
@@ -19,7 +20,16 @@ public class EditDirectoryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Model model = ModelFactory.getModel();
         long idToEdit = Long.parseLong(request.getParameter("dirId"));
-        Directory toEdit = model.findDir(idToEdit);
+        Directory toEdit = null;
+        try {
+            toEdit = model.findDir(idToEdit);
+        } catch (DirectoryNotFound e) {
+            request.setAttribute("message", e.getMessage());
+            ServletContext context = getServletContext();
+            RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
+            dispatch.forward(request, response);
+            return;
+        }
         request.setAttribute("curDir", toEdit);
 
         ServletContext context = getServletContext();

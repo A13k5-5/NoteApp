@@ -8,6 +8,7 @@ import org.example.Classes.Contents.Image;
 import org.example.Classes.StorageItems.Directory;
 import org.example.Classes.StorageItems.Note;
 import org.example.Exceptions.ContentNotFound;
+import org.example.Exceptions.DirectoryNotFound;
 import org.example.Exceptions.NoteNotFound;
 
 import java.io.*;
@@ -51,16 +52,14 @@ public class Model {
         getCurDir().addDirectory(d);
         saveFiles();
     }
-//    would be cool to add NoteNotFound exception
     public Note findNote(long id) throws NoteNotFound {
         return this.getCurDir().findNote(id);
     }
-//    Add DirNotFound exception
-    public Directory findDir(long id) {
+    public Directory findDir(long id) throws DirectoryNotFound{
         for (Directory d : getCurDir().getDirectories())
             if (d.getId() == id)
                 return d;
-        return null;
+        throw new DirectoryNotFound("Directory not found");
     }
     public void editText(long noteIdToEdit, long contentIdToEdit, String newContent, String newTitle) throws ContentNotFound, NoteNotFound {
         Note noteToEdit = this.getCurDir().findNote(noteIdToEdit);
@@ -88,7 +87,7 @@ public class Model {
         saveFiles();
     }
     public Directory getCurDir(){ return this.curDir; }
-    public void changeCurDir(Long newDirId) {
+    public void changeCurDir(Long newDirId) throws DirectoryNotFound {
         Directory newCurDir = findDir(newDirId);
         if (newCurDir == null)
             return;
