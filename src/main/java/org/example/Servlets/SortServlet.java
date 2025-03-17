@@ -14,13 +14,7 @@ public class SortServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String sortOrder = request.getParameter("sortOrder");
-        if (sortOrder.equals("a-z")) {
-            ModelFactory.getModel().sort(false);
-        } else if (sortOrder.equals("z-a")) {
-            ModelFactory.getModel().sort(true);
-        } else if (sortOrder.equals("oldest-to-newest")) {
-            ModelFactory.getModel().sort(true);
-        }
+        ModelFactory.getModel().sort(sortOrder);
         response.sendRedirect("/");
     }
 }

@@ -148,8 +148,8 @@ public class Model {
         curDir = pathToCur.getLast();
         return true;
     }
-    public void sort(boolean reversed) {
-        curDir.sort(reversed);
+    public void sort(String type) {
+        curDir.sort(type);
         saveFiles();
     }
 }

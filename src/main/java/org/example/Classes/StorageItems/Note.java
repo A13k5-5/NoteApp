@@ -56,12 +56,12 @@ public class Note extends StorageItem {
         ((Image)toChange).setDescription(imgDescription);
     }
     public void search(String keywords, Directory result) {
-        if (this.getName().contains(keywords)){
+        if (this.getName().toLowerCase().contains(keywords.toLowerCase())){
             result.addNote(this);
             return;
         }
         for (Content c : content) {
-            if(c.getType().equals("Text") && ((Text)c).getText().contains(keywords) || c.getType().equals("Image") && ((Image)c).getDescription().contains(keywords)) {
+            if(c.getType().equals("Text") && ((Text)c).getText().toLowerCase().contains(keywords.toLowerCase()) || c.getType().equals("Image") && ((Image)c).getDescription().toLowerCase().contains(keywords.toLowerCase())) {
                 result.addNote(this);
             }
         }
