@@ -9,10 +9,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import org.example.Classes.StorageItems.Note;
+import org.example.Exceptions.ContentNotFound;
+import org.example.Exceptions.NoteNotFound;
 import org.example.Model.Model;
 import org.example.Model.ModelFactory;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @WebServlet("/editNote.html")
@@ -27,7 +31,14 @@ public class EditNoteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Model model = ModelFactory.getModel();
         long idToEdit =  Long.parseLong(request.getParameter("id"));
-        request.setAttribute("noteToEdit", model.findNote(idToEdit));
+        try {
+            request.setAttribute("noteToEdit", model.findNote(idToEdit));
+        } catch (NoteNotFound e) {
+            request.setAttribute("message", e.getMessage());
+            ServletContext context = getServletContext();
+            RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
+            dispatch.forward(request, response);
+        }
         ServletContext context = getServletContext();
         RequestDispatcher dispatch = context.getRequestDispatcher("/editNote.jsp");
         dispatch.forward(request, response);
@@ -41,24 +52,44 @@ public class EditNoteServlet extends HttpServlet {
         String descriptionPrefix = "description_";
         String imagePrefix = "img_";
 
-        request.getParameterMap().forEach((paramName, paramValues) -> {
-            if (paramName.startsWith(contentPrefix)) {
-                long contentIdToEdit = Long.parseLong(paramName.substring(contentPrefix.length()));
-                String newContent = paramValues[0];
-                model.editText(noteIdToEdit, contentIdToEdit, newContent, newTitle);
-            } else if(paramName.startsWith(descriptionPrefix)) {
-                long contentIdToEdit = Long.parseLong(paramName.substring(descriptionPrefix.length()));
-                String newDescription = paramValues[0];
-                model.editImageDescription(noteIdToEdit, contentIdToEdit, newDescription);
-            }
-        });
+        try {
+            request.getParameterMap().forEach((paramName, paramValues) -> {
+                if (paramName.startsWith(contentPrefix)) {
+                    long contentIdToEdit = Long.parseLong(paramName.substring(contentPrefix.length()));
+                    String newContent = paramValues[0];
+                    try {
+                        model.editText(noteIdToEdit, contentIdToEdit, newContent, newTitle);
+                    } catch (ContentNotFound | NoteNotFound e) {
+                        logger.log(Level.WARNING, "Content not found while editing text", e);
+                    }
+                } else if (paramName.startsWith(descriptionPrefix)) {
+                    long contentIdToEdit = Long.parseLong(paramName.substring(descriptionPrefix.length()));
+                    String newDescription = paramValues[0];
+                    try {
+                        model.editImageDescription(noteIdToEdit, contentIdToEdit, newDescription);
+                    } catch (ContentNotFound | NoteNotFound e) {
+                        logger.log(Level.WARNING, "Content not found while editing image description", e);
+                    }
+                }
+            });
 
-        for (Part part : request.getParts()) {
-            if (part.getName().startsWith(imagePrefix) && part.getSize() > 0) {
-                long contentIdToEdit = Long.parseLong(part.getName().substring(4));
-                model.editImage(noteIdToEdit, contentIdToEdit, part);
+            for (Part part : request.getParts()) {
+                if (part.getName().startsWith(imagePrefix) && part.getSize() > 0) {
+                    long contentIdToEdit = Long.parseLong(part.getName().substring(imagePrefix.length()));
+                    try {
+                        model.editImage(noteIdToEdit, contentIdToEdit, part);
+                    } catch (ContentNotFound e) {
+                        logger.log(Level.WARNING, "Content not found while editing image", e);
+                    }
+                }
             }
+        } catch (Exception e) {
+            request.setAttribute("message", e.getMessage());
+            ServletContext context = getServletContext();
+            RequestDispatcher dispatch = context.getRequestDispatcher("/error.jsp");
+            dispatch.forward(request, response);
         }
+
         response.sendRedirect("viewNote.html?id=" + noteIdToEdit);
     }
 }

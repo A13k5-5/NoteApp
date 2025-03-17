@@ -3,6 +3,7 @@ package org.example.Classes.StorageItems;
 import org.example.Classes.Contents.Content;
 import org.example.Classes.Contents.Image;
 import org.example.Classes.Contents.Text;
+import org.example.Exceptions.ContentNotFound;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,21 +21,21 @@ public class Note extends StorageItem {
         this.content = new ArrayList<>();
     }
     public List<Content> getContent() {return this.content;}
-    private Content findContent(long id) {
+    private Content findContent(long id) throws ContentNotFound{
         for (Content c : this.getContent())
             if (c.getId() == id)
                 return c;
-        return null;
+        throw new ContentNotFound("Content not found");
     }
     public void addContent(Content newContent) {
         this.content.add(newContent);
     }
-    public Content removeContent(long contentId) {
+    public Content removeContent(long contentId) throws ContentNotFound{
         Content toRemove = findContent(contentId);
         content.removeIf(content -> content.getId() == contentId);
         return toRemove;
     }
-    public void editText(long contentIdToEdit, String newText) {
+    public void editText(long contentIdToEdit, String newText) throws ContentNotFound {
         Content toChange = findContent(contentIdToEdit);
         if (!toChange.getType().equals("Text")){
             System.out.println("Not a text");
@@ -42,14 +43,14 @@ public class Note extends StorageItem {
         }
         ((Text)toChange).setText(newText);
     }
-    public void editImage(long contentIdToEdit, File newImage) {
+    public void editImage(long contentIdToEdit, File newImage) throws ContentNotFound {
         Content toChange = findContent(contentIdToEdit);
         if (!toChange.getType().equals("Image"))
             return;
         String relativePath = "images/" + newImage.getName();
         ((Image)toChange).setPath(relativePath);
     }
-    public void editImageDescription(long contentIdToEdit, String imgDescription) {
+    public void editImageDescription(long contentIdToEdit, String imgDescription) throws ContentNotFound {
         Content toChange = findContent(contentIdToEdit);
         if (!toChange.getType().equals("Image"))
             return;

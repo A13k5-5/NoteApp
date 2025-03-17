@@ -2,6 +2,7 @@ package org.example.Classes.StorageItems;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.example.Exceptions.NoteNotFound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +37,11 @@ public class Directory extends StorageItem {
         directories.add(directory);
     }
     // Note not found
-    public Note findNote(long noteId) {
+    public Note findNote(long noteId) throws NoteNotFound {
         for (Note n : notes)
             if (n.getId() == noteId)
                 return n;
-        return null;
+        throw new NoteNotFound("Note not found");
     }
     public Directory findDirectory(long dirId) {
         for (Directory d : directories)

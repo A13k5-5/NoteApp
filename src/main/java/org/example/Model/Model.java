@@ -7,6 +7,8 @@ import org.example.Classes.Contents.Content;
 import org.example.Classes.Contents.Image;
 import org.example.Classes.StorageItems.Directory;
 import org.example.Classes.StorageItems.Note;
+import org.example.Exceptions.ContentNotFound;
+import org.example.Exceptions.NoteNotFound;
 
 import java.io.*;
 import java.util.Stack;
@@ -50,7 +52,7 @@ public class Model {
         saveFiles();
     }
 //    would be cool to add NoteNotFound exception
-    public Note findNote(long id) {
+    public Note findNote(long id) throws NoteNotFound {
         return this.getCurDir().findNote(id);
     }
 //    Add DirNotFound exception
@@ -60,13 +62,13 @@ public class Model {
                 return d;
         return null;
     }
-    public void editText(long noteIdToEdit, long contentIdToEdit, String newContent, String newTitle){
+    public void editText(long noteIdToEdit, long contentIdToEdit, String newContent, String newTitle) throws ContentNotFound, NoteNotFound {
         Note noteToEdit = this.getCurDir().findNote(noteIdToEdit);
         noteToEdit.editText(contentIdToEdit, newContent);
         noteToEdit.setName(newTitle);
         saveFiles();
     }
-    public void editImage(long noteIdToEdit, long contentIdToEdit, Part part) throws IOException {
+    public void editImage(long noteIdToEdit, long contentIdToEdit, Part part) throws IOException, ContentNotFound, NoteNotFound {
         File uploadsDir = new File(System.getProperty("user.dir"), "images");
         if (!uploadsDir.exists())
             uploadsDir.mkdirs();
@@ -81,7 +83,7 @@ public class Model {
         noteToEdit.editImage(contentIdToEdit, destFile);
         saveFiles();
     }
-    public void editImageDescription(long noteIdToEdit, long contentIdToEdit, String imgDescription) {
+    public void editImageDescription(long noteIdToEdit, long contentIdToEdit, String imgDescription) throws ContentNotFound, NoteNotFound {
         getCurDir().findNote(noteIdToEdit).editImageDescription(contentIdToEdit, imgDescription);
         saveFiles();
     }
@@ -108,7 +110,7 @@ public class Model {
         getCurDir().removeDirectory(idToDelete);
         saveFiles();
     }
-    public void removeContent(long noteId, long contentId) {
+    public void removeContent(long noteId, long contentId) throws ContentNotFound, NoteNotFound {
         Content removed = this.getCurDir().findNote(noteId).removeContent(contentId);
         if (removed.getType().equals("Image")) {
             String imagePath = ((Image) removed).getPath();
